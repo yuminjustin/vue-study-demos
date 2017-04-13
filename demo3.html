@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<div id="example">
+		<component>
+		    <p>占位置</p>
+			<div v-bind:is="currentView"></div>
+		</component>
+		<a href="javascript:;" @click="change('home')">home</a>
+		<a href="javascript:;" @click="change('posts')">posts</a>
+		<a href="javascript:;" @click="change('archive')">archive</a>
+		<transition name="fade" mode="out-in" @appear="testAppear">
+			<div v-if="ok">toggled content</div>
+		</transition>
+	</div>
+	<script src="js/vue.min.js"></script>
+	<script type="text/x-template" id="hello-world-template">
+		<p>Hello hello hello</p>
+	</script>
+	<script>
+		var Home = {
+			template: '<p>Welcome home!</p>'
+		}
+		var Posts = {
+			template: '<p>It\'s posts!</p>'
+		}
+		var Archive = {
+			template: '<p @click="test">Archive!</p>',
+			methods:{
+				test:function(){
+					alert(1)
+				}
+			}
+		}
+		var vm = new Vue({
+			el: '#example',
+			data: {
+				ok:1,
+				currentView: Home
+			},
+			methods: {
+				change: function(ipt) {
+					this.currentView = ipt == "home" ? Home : ipt == "posts" ? Posts : Archive;
+				},
+				testAppear:function(){
+					console.log(111);
+				}
+			}
+		})
+		setTimeout(function(){
+			vm.$data.ok = 0;
+		},2000)
+	</script>
+</body>
+
+</html>
