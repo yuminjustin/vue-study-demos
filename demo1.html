@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.min.js"></script>
+	<style>
+		#example1 {
+			width: 120px;
+			height: auto;
+			background: #dedede;
+		}
+		
+		.block {
+			min-height: 30px;
+			line-height: 30px;
+			width: 100%;
+			text-indent: 1em;
+		}
+		
+		.block span {
+			display: block;
+			color: #fff;
+			border-bottom: solid 1px #fff;
+		}
+		
+		.block>span {
+			background: #3c8b3c;
+			cursor: pointer;
+		}
+		
+		.block:last-of-type>span {
+			border: none;
+		}
+		
+		.son {
+			display: none;
+		}
+		
+		.son>span {
+			background: #343634;
+			text-indent: 2em;
+		}
+		
+		.block.active .son {
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="example1">
+		<div id="kk">你好</div>
+		<example v-for="item in data" :item="item"></example>
+	</div>
+
+	<script>
+		var data = [{
+			"id": "1",
+			"data": {
+				"menuName": "项目管理",
+				"menuCode": "",
+			},
+			"childTreeNode": [{
+				"id": "11",
+				"data": {
+					"menuName": "项目",
+					"menuCode": "BusProject",
+				},
+				"childTreeNode": []
+			}, {
+				"id": "12",
+				"data": {
+					"menuName": "我的任务",
+					"menuCode": "BusProject",
+				},
+				"childTreeNode": []
+			}, {
+				"id": "13",
+				"data": {
+					"menuName": "人员周报",
+					"menuCode": "BusProject",
+				},
+				"childTreeNode": []
+			}]
+		}, {
+			"id": "2",
+			"data": {
+				"menuName": "数据统计",
+				"menuCode": "BusClock",
+			},
+			"childTreeNode": []
+		}, {
+			"id": "3",
+			"data": {
+				"menuName": "人事管理",
+				"menuCode": "",
+			},
+			"childTreeNode": []
+		}, {
+			"id": "4",
+			"data": {
+				"menuName": "基础管理",
+				"menuCode": "",
+			},
+			"childTreeNode": []
+		}]
+
+
+		Vue.component('example', {
+			name: 'example',
+			template: '<div :class="myclass" @click="openMenu"><span>{{name}}</span><example v-for="item2 in item.childTreeNode" :item="item2" :son="true" v-if="isNull"></example></div>',
+			props: ['item', 'son'],
+			data: function() {
+				return {
+					name: this.item.data.menuName,
+					open: !1
+				}
+			},
+			computed: {
+				isNull: function() {
+					return this.item.childTreeNode.length
+				},
+				myclass: function() {
+					return this.son ? "son" : this.open ? "block active" : "block"
+				}
+			},
+			methods: {
+				openMenu: function() {
+					if (this.son) return
+					else this.open = this.open ? !1 : !0;
+				}
+			}
+		})
+
+		var r = new Vue({
+			el: '#example1',
+			data: {
+				data: data
+			}
+		})
+	</script>
+</body>
+
+</html>
