@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<div id="example">
+		<div>{{$test}}</div>
+		<div v-abc>plugin</div>
+		<div>
+			<button @click="$click">click me</button>
+		</div>
+	</div>
+	<script src="js/vue.min.js"></script>
+	<script>
+		(function() {
+			var Test = {
+				install: function(Vue) {
+					Vue.prototype.$test = "I'm working!"
+					Vue.directive('abc', {
+						inserted: function(dom) {
+							dom.style.color = "red"
+						}
+					});
+					Vue.prototype.$click = function() {
+						alert("clicked!")
+					}
+					Vue.mixin({
+						created: function() {
+							alert("It's created!")
+						}
+					})
+					Vue.myGlobalMethod = function() {
+						alert("my global method")
+					}
+				}
+			}
+
+			if (typeof exports == "object") {
+				module.exports = Test
+			} else if (typeof define == "function" && define.amd) {
+				define([], function() {
+					return Test
+				})
+			} else if (window.Vue) {
+				Vue.use(Test)
+			}
+		})()
+	</script>
+	<script>
+		new Vue({
+			el: '#example',
+			mounted:function(){
+				Vue.myGlobalMethod()
+			}
+		})
+	</script>
+</body>
+
+</html>
