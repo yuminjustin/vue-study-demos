@@ -3,13 +3,13 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Dynamic components 动态组件</title>
 </head>
 
 <body>
 	<div id="example">
 		<component>
-		    <p>占位置</p>
+		    <p>blocks</p>
 			<div v-bind:is="currentView"></div>
 		</component>
 		<a href="javascript:;" @click="change('home')">home</a>
