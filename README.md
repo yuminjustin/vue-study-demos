@@ -7,3 +7,4 @@ This is my Vuejs study notes, base on Vuejs 2.0 <br/>
 2. Async components 异步组件
 3. Dynamic components 动态组件
 4. Plugin 插件
+5. Nested routing 嵌套路由
