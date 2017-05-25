@@ -8,3 +8,4 @@ This is my Vuejs study notes, base on Vuejs 2.0 <br/>
 3. Dynamic components 动态组件
 4. Plugin 插件
 5. Nested routing 嵌套路由
+6. slot 分发
