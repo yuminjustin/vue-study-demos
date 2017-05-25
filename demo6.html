@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>slot</title>
+</head>
+
+<body>
+	<div id="test">
+	</div>
+	<script src="js/vue.min.js"></script>
+	<script>
+		Vue.component('my-component', {
+			template: '\
+			    <div>\
+                   <h2>子组件</h2>\
+                   <slot>\
+                     只有在没有要分发的内容时才会显示。\
+                   </slot>\
+                   <slot name="test">\
+                   </slot>\
+                </div>'
+		});
+
+		var app = new Vue({
+			el: '#test',
+			template: '\
+			  <div>\
+			    <h1>父组件</h1>\
+			    <my-component>\
+			      <p>不具名的分发</p>\
+                  <p slot="test" style="color:#f00">具名test的分发</p>\
+			    </my-component>\
+			  </div>\
+			',
+			data: {}
+		})
+	</script>
+</body>
+
+</html>
